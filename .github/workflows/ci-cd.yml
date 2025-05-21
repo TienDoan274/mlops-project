@@ -16,7 +16,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Set up DVC
         run: |
-          dvc remote add -d myremote ./dvc_storage
+          dvc remote add -d -f myremote ./dvc_storage
           dvc pull
       - name: Run DVC pipeline
         run: dvc repro
