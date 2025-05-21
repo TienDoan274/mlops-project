@@ -1,0 +1,26 @@
+name: MLOps Pipeline
+on:
+  push:
+    branches:
+      - main
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Set up DVC
+        run: |
+          dvc remote add -d myremote s3://my-bucket/
+          dvc pull
+      - name: Run DVC pipeline
+        run: dvc repro
+      - name: Deploy model
+        run: |
+          docker build -t dog-cat-classification .
+          docker run -d -p 8000:8000 dog-cat-classification

@@ -1,0 +1,8 @@
+dvc
+mlflow
+torch==2.0.1
+torchvision==0.15.2
+fastapi
+uvicorn
+numpy
+pillow
