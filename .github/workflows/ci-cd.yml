@@ -18,14 +18,6 @@ jobs:
         run: |
           dvc remote add -d myremote ./dvc_storage
           dvc pull
-      - name: Organize dataset
-        run: |
-          python src/organize_data.py dataset data/raw || true
-          dvc add data/raw || true
-          dvc push
-          git add data/raw.dvc
-          git commit -m "Organized and added new images" || true
-          git push || true
       - name: Run DVC pipeline
         run: dvc repro
       - name: Deploy model
